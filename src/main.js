@@ -3,19 +3,17 @@ const sController = require('./controller/SalesmenController');
 var MongoClient = require('mongodb').MongoClient;
 const express=require('express');
 const app=express();
-
-
+app.use(express.json());
 var sControl = new sController.Salesmencontroller(MongoClient);
 
 app.get('/',(req,res)=>{
     res.send("Welcome to Node-based REST-API");
-    console.log(sControl);
 });
 
-app.get('/GetSalesman/:id',(req, res) => {
+app.get('/Salesman/:id',(req, res) => {
     let fetchedsalesman = new Promise((resolve, reject) => {
         let fetched = sControl.salesmanByID(req.params.id);
-        setTimeout(()=>{resolve(fetched);},1000);
+        setTimeout(()=>{resolve(fetched);},100);            //Is there another way than using a timer?
     });
     fetchedsalesman.then(
         function (value){
@@ -27,6 +25,12 @@ app.get('/GetSalesman/:id',(req, res) => {
         }
     )
 });
+app.post("/Salesman",((req, res) => {
+    console.log(req.body.firstname);
+    sControl.PostSalesman(req.body);
+    //res.json({requestBody: req.body});
+    res.send("Stored Salesman in database");
+}));
 
 app.listen(8081,()=>{
     console.log('Application started.');

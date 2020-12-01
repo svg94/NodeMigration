@@ -21,10 +21,21 @@ class Salesmencontroller{
                     fetched.lastname = result.lastname;
                     fetched.id = result.id;
                     resolve(result);
+                    db.close();
                 })
             });
         }));
         return fetched;
+    }
+    PostSalesman(salesman){
+        this.dbManager.connect(this.url,function(err,db){
+            if(err) throw err;
+            var dbo = db.db("highperformance");
+            dbo.collection("Salesmen").insertOne(salesman,function(err,resp){
+                if(err) throw err;
+                db.close();
+            });
+        })
     }
 }
 
