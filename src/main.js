@@ -40,13 +40,19 @@ app.get('/Evaluationrecord/:id',((req, res) => {
     });
     fetchedEval.then(
         function (value){
-            console.log(value);
             res.send(value);
         },
         function (err){
             res.send(err);
         }
     )
+}));
+
+app.post("/Evaluationrecord",((req, res) => {
+    console.log(req.body.firstname);
+    eControl.PostEval(req.body);
+    //res.json({requestBody: req.body});
+    res.send("Stored Salesman in database");
 }));
 
 app.listen(8081,()=>{
