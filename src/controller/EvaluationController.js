@@ -23,7 +23,7 @@ class Evaluationcontroller{
                     if (err) throw err;
                     console.log("Fetched",result);
                     Object.keys(result).filter((key)=>{return !blacklist.includes(key);}).forEach(function(key){
-                        //IF result[key] empty add 2 zeros. PREVENTING ERROR
+                        //TODO: IF result[key] empty add 2 zeros. PREVENTING ERROR
                         result[key].forEach((elem)=>{
                            fetched.push(elem);
                        });
