@@ -58,5 +58,27 @@ class Evaluationcontroller{
             });
         });
     }
+    DelEval(id){
+        this.dbManager.connect(this.url, function(err,db){
+           if(err) throw err;
+           let dbo = db.db("highperformance");
+           dbo.collection("evaluationrecords").deleteOne(id, function (err,resp){
+               if(err) throw err;
+               db.close();
+           });
+        });
+    }
+    UpdateEval(evalrecord){
+        console.log(evalrecord.sid);
+        this.dbManager.connect(this.url,function(err,db) {
+            if (err) throw err;
+            let dbo = db.db("highperformance");
+            dbo.collection("evaluationrecords").updateOne({sid: evalrecord.sid},{$set: evalrecord}, function (err, resp) {
+                if (err) throw err;
+                db.close();
+            });
+        });
+    }
 }
 module.exports ={Evaluationcontroller};
+//{sid : Number(id)}

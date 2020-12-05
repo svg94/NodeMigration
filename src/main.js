@@ -8,7 +8,7 @@ var sControl = new sController.Salesmencontroller(MongoClient);
 var eControl = new eController.Evaluationcontroller(MongoClient);
 
 app.get('/',(req,res)=>{
-    res.send("Welcome to Node-based REST-API");
+    res.send("Welcome to Node-based REST-API. <br>/Salesman/:id for getting a Salesman <br>/Salesman (post) for storing one <br>The same with /EvaluationRecord");
 });
 
 app.get('/Salesman/:id',(req, res) => {
@@ -29,7 +29,6 @@ app.get('/Salesman/:id',(req, res) => {
 app.post("/Salesman",((req, res) => {
     console.log(req.body.firstname);
     sControl.PostSalesman(req.body);
-    //res.json({requestBody: req.body});
     res.send("Stored Salesman in database");
 }));
 
@@ -49,10 +48,16 @@ app.get('/Evaluationrecord/:id',((req, res) => {
 }));
 
 app.post("/Evaluationrecord",((req, res) => {
-    console.log(req.body.firstname);
     eControl.PostEval(req.body);
-    //res.json({requestBody: req.body});
-    res.send("Stored Salesman in database");
+    res.send("Stored Evaluationrecord");
+}));
+app.delete("/Evaluationrecord",((req,res) => {
+    eControl.DelEval(req.body);
+    res.send("Deleted Evaluationrecord");
+}));
+app.put("/Evaluationrecord",((req, res) => {
+    eControl.UpdateEval(req.body);
+    res.send("Updated Evaluationrecord");
 }));
 
 app.listen(8081,()=>{
