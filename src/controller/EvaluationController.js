@@ -4,7 +4,7 @@ class Evaluationcontroller{
         this.dbManager = mongo;
         this.url = "mongodb://localhost:27017/";
     }
-    EvalByID(Sid){
+    evalByID(Sid){
         var fetched=[];
         var evalrecord={
             leadershipcompetence:[],
@@ -48,7 +48,7 @@ class Evaluationcontroller{
         });
         return evalrecord;
     }
-    PostEval(evalrecord){
+    postEval(evalrecord){
         this.dbManager.connect(this.url,function(err,db) {
             if (err) throw err;
             var dbo = db.db("highperformance");
@@ -58,17 +58,17 @@ class Evaluationcontroller{
             });
         });
     }
-    DelEval(id){
+    delEval(sid){
         this.dbManager.connect(this.url, function(err,db){
            if(err) throw err;
            let dbo = db.db("highperformance");
-           dbo.collection("evaluationrecords").deleteOne(id, function (err,resp){
+           dbo.collection("evaluationrecords").deleteOne(sid, function (err,resp){
                if(err) throw err;
                db.close();
            });
         });
     }
-    UpdateEval(evalrecord){
+    updateEval(evalrecord){
         console.log(evalrecord.sid);
         this.dbManager.connect(this.url,function(err,db) {
             if (err) throw err;
