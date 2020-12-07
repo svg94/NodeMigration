@@ -10,21 +10,17 @@ class Salesmencontroller{
             lastname: "",
             id: 0,
         };
-        var promise = new Promise(((resolve, reject) => {
-            this.dbManager.connect(this.url, function(err, db) {
+        this.dbManager.connect(this.url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("highperformance");
+            dbo.collection("Salesmen").findOne({id : Number(Sid)}, function(err, result) {
                 if (err) throw err;
-                var dbo = db.db("highperformance");
-                dbo.collection("Salesmen").findOne({id : Number(Sid)}, function(err, result) {
-                    if (err) throw err;
-                    console.log("Fetched",result);
-                    fetched.firstname = result.firstname;
-                    fetched.lastname = result.lastname;
-                    fetched.id = result.id;
-                    resolve(result);
-                    db.close();
-                })
-            });
-        }));
+                fetched.firstname = result.firstname;
+                fetched.lastname = result.lastname;
+                fetched.id = result.id;
+                db.close();
+            })
+        });
         return fetched;
     }
     postSalesman(salesman){
