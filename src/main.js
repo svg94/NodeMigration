@@ -1,6 +1,7 @@
 const sController = require('./controller/SalesmenController');
 const eController = require('./controller/EvaluationController');
 const crxController = require('./controller/OpenCRXController');
+const crxSummarize = require("./controller/Summarizer/OpenCRXData");
 const MongoClient = require('mongodb').MongoClient;
 const express=require('express');
 const app=express();
@@ -8,6 +9,7 @@ app.use(express.json());    //For giving a json-object in the body
 var sControl = new sController.Salesmencontroller(MongoClient);
 var eControl = new eController.Evaluationcontroller(MongoClient);
 let crxControl = new crxController.OpenCRXController();
+
 
 /*
 *  Start-Screen
@@ -92,8 +94,8 @@ app.listen(8081,()=>{
 *   OPENCRX-FUNCTIONS
 *
 */
-app.get("/openCRX/allProducts",((req, res) => {
-    crxControl.getAllSalesOrders().then(function (respond){
+app.get("/openCRX/orderEvaluation/:id",((req, res) => {
+    crxSummarize.CollectOpenCRXData(crxControl,req.params.id).then(function(respond){
         res.send(respond);
     });
 }));

@@ -33,6 +33,6 @@ async function testGetClientRanking(){
 }
 async function testGetAllPositions(){
     let x = await ctr.getAllPositionsFromOrder("9DTSXR06DLHPM0EBHQA5MAZ7J");
-    console.log(x);
+    console.log(x.length);
 }
 testGetAllPositions();
