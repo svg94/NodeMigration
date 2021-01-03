@@ -44,7 +44,7 @@ async function CollectOpenCRXData(controller, sid){
         //build one json thingy to return
         let jsonOrder= {
           productname: productname,
-          clientname: customer,
+          clientname: customer["name"],
           clientranking: customerRanking,
           items: items,
         };
