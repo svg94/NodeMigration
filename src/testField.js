@@ -1,6 +1,8 @@
 const c = require('./controller/OpenCRXController');
+const oc = require('./controller/OrangeHRMController');
 
 let ctr = new c.OpenCRXController();
+let octr = new oc.OrangeHRMController();
 async function testGetCustomer(){
     let x = await ctr.getCustomerFromSalesOrder("9DTSXR06DLHPM0EBHQA5MAZ7J");
     console.log(x);
@@ -35,4 +37,15 @@ async function testGetAllPositions(){
     let x = await ctr.getAllPositionsFromOrder("9DTSXR06DLHPM0EBHQA5MAZ7J");
     console.log(x.length);
 }
-testGetAllPositions();
+async function testGetSalesOrder(){
+    let x = await ctr.getSalesOrder("9DTSXR06DLHPM0EBHQA5MAZ7J");
+    console.log(x);
+}
+//testGetSalesOrder();
+
+//OrangeHRM Tests
+async function testToken(){
+    let x = await octr.getToken();
+    console.log(x);
+}
+testToken();
