@@ -31,7 +31,7 @@ class OrangeHRMController{
         this.token = res.data['access_token'];
         return this.token;
     }
-    async writeSalary(id){
+    async writeSalary(id,reqBody){
 
     }
     async getAllSalesmen(){
